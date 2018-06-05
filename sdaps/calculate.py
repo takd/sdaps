@@ -178,14 +178,15 @@ class Range(Option, metaclass=model.buddy.Register):
                     self.mean += key * self.range_values[key]
                 self.mean = self.mean / float(self.range_count)
 
-                # Now we can calculate the standard deviation
+                #Helyes szórás
                 for key in self.range_values:
                     self.standard_deviation += self.range_values[key] * pow(key - self.mean, 2)
-                self.standard_deviation = math.sqrt(self.standard_deviation / float(self.range_count))
 
-                # And finally store the percentage rather than count for each answer
-                for key in self.range_values:
+                    # Also divide by count
                     self.range_values[key] = self.range_values[key] / float(self.count)
+
+                self.standard_deviation = math.sqrt(self.standard_deviation / float(self.range_count))
+                # szórás vége
 
                 if hasattr(self, 'ref_count'):
                     self.significant = abs(self.mean - self.ref_mean) > 0.1
