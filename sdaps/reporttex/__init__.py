@@ -137,7 +137,7 @@ def report(survey, filter, filename=None, papersize=None, small=0, suppress=None
 
     """ % {'language': _('tex language|english'),
            'title': _('sdaps report'),
-           'turned_in': _('Turned in Questionnaires'),
+           'turned_in': _('Beadva'),
            'title': survey.title,
            'author': author,
            'extra_info': extra_info,
