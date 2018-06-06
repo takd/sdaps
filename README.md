@@ -56,7 +56,7 @@ GUI nincs, így minden műveletet a terminálon keresztül kell végezni. Ha a t
 
 ### Beszkennelt kérdőívek feldolgozása, új projekt létrehozása:
 
-1. A kérdőíveket legalább 300 DPI minőségben, monokróm színben, TIF formátumban kell beszkennelni az optimális működés érdekében.
+1. A kérdőíveket legalább 300 DPI minőségben, monokróm (fekete-fehér, nem szürkeárnyalatos) színben, TIF formátumban kell beszkennelni az optimális működés érdekében.
 
 2. Egyszerre egy eseményhez tartozó kérdőíveket kell bemásolni a `_nyers` mappába.
 
