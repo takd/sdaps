@@ -1,0 +1,215 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+Setting overrides throws no errors
+============================================================
+============================================================
+============================================================
+TEST 1: Initialize SDAPS
+============================================================
+** Code 128 ** input: 324989230001
+encoded: \startC ,32,49,89,23,00,01,85,\stop ,
+black-white: 21123223212121133121214131213121222222212212421123311120
+[1
+Duplex=false
+PrintQuestionnaireId=0
+PageSize=597.50793pt,845.04694pt
+Style=code128
+CheckMode=checkcorrect
+GlobalID=
+GlobalIDLabel=
+]
+============================================================
+============================================================
+TEST 2: Test nested unwrapping of context scopes
+============================================================
+============================================================
+============================================================
+TEST 3: Check metadata error handling
+============================================================
+*************************************************
+* sdapsbase warning: "no_qid"
+* 
+* Trying to output metadata but no question ID is set on the context. Did you
+* start a question? Supressing the output!
+*************************************************
+** Code 128 ** input: 324989230002
+encoded: \startC ,32,49,89,23,00,02,91,\stop ,
+black-white: 21123223212121133121214131213121222222222141212123311120
+[2
+QObject-Choice=1. A choice question
+Box[1]=Checkbox,2,89.62619pt,731.09705pt,9.95845pt,9.95845pt,box,1.00374pt,,
+]
+============================================================
+============================================================
+TEST 4: Check whether overrides are working
+============================================================
+** Code 128 ** input: testqid
+encoded: \startB ,84,69,83,84,81,73,68,67,\stop ,
+black-white: 21121412411211221411421212411212114214211214122114112223311120
+** Code 128 ** input: 324989230003
+encoded: \startC ,32,49,89,23,00,03,97,\stop ,
+black-white: 21123223212121133121214131213121222212122341111323311120
+[3
+QObject-Choice=2. A choice question
+Box[2]=Checkbox,3,100.57619pt,746.31589pt,9.95845pt,14.22636pt,box,1.00374pt,,
+Box[2]=Checkbox,3,114.18097pt,753.42908pt,9.95845pt,28.45274pt,box,1.00374pt,testvar,
+Box[2]=Checkbox,3,127.78575pt,760.54227pt,9.95845pt,42.67912pt,box,1.00374pt,testvar,testval
+]
+============================================================
+============================================================
+TEST 5: Check whether context appending is working
+============================================================
+** Code 128 ** input: testqid
+encoded: \startB ,84,69,83,84,81,73,68,67,\stop ,
+black-white: 21121412411211221411421212411212114214211214122114112223311120
+** Code 128 ** input: 324989230004
+encoded: \startC ,32,49,89,23,00,04,0,\stop ,
+black-white: 21123223212121133121214131213121222212132221222223311120
+[4
+QObject-Choice=3. A choice question
+Box[3]=Checkbox,4,100.57619pt,753.42908pt,9.95845pt,14.22636pt,box,1.00374pt,,
+Box[3]=Checkbox,4,114.18097pt,760.54227pt,9.95845pt,28.45274pt,box,1.00374pt,,
+]
+============================================================
+============================================================
+TEST 6: Check different checkbox designs and font sizes
+============================================================
+** Code 128 ** input: testqid
+encoded: \startB ,84,69,83,84,81,73,68,67,\stop ,
+black-white: 21121412411211221411421212411212114214211214122114112223311120
+** Code 128 ** input: 324989230005
+encoded: \startC ,32,49,89,23,00,05,6,\stop ,
+black-white: 21123223212121133121214131213121222213122212221323311120
+[5
+QObject-Choice=4. A choice question
+Box[4]=Checkbox,5,159.8442pt,756.59029pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,170.8182pt,727.27989pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,178.05121pt,697.62468pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,185.2262pt,667.96948pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,194.30817pt,638.29706pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,201.89821pt,608.65909pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,224.35254pt,579.4866pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,271.24644pt,551.67267pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,307.50041pt,523.10013pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[4]=Checkbox,5,159.8442pt,486.59029pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[4]=Checkbox,5,170.8182pt,457.27989pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[4]=Checkbox,5,178.05121pt,427.62468pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[4]=Checkbox,5,185.2262pt,397.96948pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[4]=Checkbox,5,194.30817pt,368.29706pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[4]=Checkbox,5,201.89821pt,338.65909pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[4]=Checkbox,5,224.35254pt,309.4866pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[4]=Checkbox,5,271.24644pt,281.67267pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[4]=Checkbox,5,307.50041pt,253.10013pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+]
+============================================================
+============================================================
+TEST 7: Checkbox line width, form and fill setting
+============================================================
+** Code 128 ** input: testqid
+encoded: \startB ,84,69,83,84,81,73,68,67,\stop ,
+black-white: 21121412411211221411421212411212114214211214122114112223311120
+** Code 128 ** input: 324989230006
+encoded: \startC ,32,49,89,23,00,06,12,\stop ,
+black-white: 21123223212121133121214131213121222212221311223223311120
+[6
+QObject-Choice=5. A choice question
+Box[5]=Checkbox,6,89.62619pt,758.29706pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[5]=Checkbox,6,99.58463pt,758.29706pt,9.95845pt,9.95845pt,box,2.00749pt,,
+Box[5]=Checkbox,6,89.62619pt,744.69705pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[5]=Checkbox,6,99.58463pt,744.69705pt,9.95845pt,9.95845pt,ellipse,2.00749pt,,
+Box[5]=Checkbox,6,89.62619pt,731.09705pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[5]=Checkbox,6,99.58463pt,731.09705pt,9.95845pt,9.95845pt,box,2.00749pt,,
+Box[5]=Checkbox,6,89.62619pt,717.49704pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[5]=Checkbox,6,99.58463pt,717.49704pt,9.95845pt,9.95845pt,ellipse,2.00749pt,,
+]
+============================================================
+============================================================
+TEST 8: multichoice/singlechoice switching
+============================================================
+** Code 128 ** input: testqid
+encoded: \startB ,84,69,83,84,81,73,68,67,\stop ,
+black-white: 21121412411211221411421212411212114214211214122114112223311120
+** Code 128 ** input: 324989230007
+encoded: \startC ,32,49,89,23,00,07,18,\stop ,
+black-white: 21123223212121133121214131213121222212231222321123311120
+[7
+QObject-Choice=6. A choice question
+Box[6]=Checkbox,7,89.62619pt,758.29706pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[6]=Checkbox,7,99.58463pt,758.29706pt,9.95845pt,9.95845pt,box,2.00749pt,,
+Box[6]=Checkbox,7,89.62619pt,744.69705pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[6]=Checkbox,7,99.58463pt,744.69705pt,9.95845pt,9.95845pt,ellipse,2.00749pt,,
+Box[6]=Checkbox,7,89.62619pt,731.09705pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[6]=Checkbox,7,99.58463pt,731.09705pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[6]=Checkbox,7,89.62619pt,717.49704pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[6]=Checkbox,7,99.58463pt,717.49704pt,9.95845pt,9.95845pt,ellipse,2.00749pt,,
+]
+============================================================
+============================================================
+TEST 9: Checkbox overlays
+============================================================
+Underfull \hbox (badness 10000) in paragraph at lines 308--361
+\hbox(0.0+0.0)x418.25555
+.\glue(\rightskip) 0.0
+** Code 128 ** input: testqid
+encoded: \startB ,84,69,83,84,81,73,68,67,\stop ,
+black-white: 21121412411211221411421212411212114214211214122114112223311120
+** Code 128 ** input: 324989230008
+encoded: \startC ,32,49,89,23,00,08,24,\stop ,
+black-white: 21123223212121133121214131213121222213221231122223311120
+[8
+QObject-Choice=7. A choice question
+Box[7]=Checkbox,8,89.62619pt,758.29706pt,9.95845pt,9.95845pt,box,1.00374pt,,
+POSITION X: 5873742,49043119
+Box[7]=Checkbox,8,89.62619pt,738.09148pt,9.95845pt,9.95845pt,box,1.00374pt,,
+Box[7]=Checkbox,8,103.23097pt,740.22543pt,14.22636pt,14.22636pt,box,1.00374pt,,
+Box[7]=Checkbox,8,121.10367pt,740.22543pt,28.45274pt,14.22636pt,box,1.00374pt,,
+Box[7]=Checkbox,8,153.20274pt,747.33862pt,14.22636pt,28.45274pt,box,1.00374pt,,
+Box[7]=Checkbox,8,89.62619pt,708.63875pt,9.95845pt,9.95845pt,ellipse,1.00374pt,,
+Box[7]=Checkbox,8,103.23097pt,710.7727pt,14.22636pt,14.22636pt,ellipse,1.00374pt,,
+Box[7]=Checkbox,8,121.10367pt,710.7727pt,28.45274pt,14.22636pt,ellipse,1.00374pt,,
+Box[7]=Checkbox,8,153.20274pt,717.8859pt,14.22636pt,28.45274pt,ellipse,1.00374pt,,
+Box[7]=Checkbox,8,89.62619pt,688.43317pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 5873742,41637663
+Box[7]=Checkbox,8,148.0225pt,688.43317pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 9700803,41637663
+Box[7]=Checkbox,8,89.62619pt,643.6332pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 5873742,39310669
+Box[7]=Checkbox,8,148.0225pt,643.6332pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 9700803,39310669
+Box[7]=Checkbox,8,89.62619pt,598.83322pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 5873742,35148732
+Box[7]=Checkbox,8,148.0225pt,598.83322pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 9700803,35148732
+Box[7]=Checkbox,8,89.62619pt,554.03325pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 5873742,32698067
+Box[7]=Checkbox,8,148.0225pt,554.03325pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 9700803,32698067
+Box[7]=Checkbox,8,89.62619pt,509.23328pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 5873742,30502636
+Box[7]=Checkbox,8,148.0225pt,509.23328pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 9700803,30502636
+Box[7]=Checkbox,8,89.62619pt,464.4333pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 5873742,26077573
+Box[7]=Checkbox,8,148.0225pt,464.4333pt,54.74998pt,43.79999pt,box,1.00374pt,,
+POSITION Minipage: 9700803,26077573
+]
+============================================================
+============================================================
+TEST 10: Finish the SDAPS document, only modifies global state
+============================================================
+============================================================
+============================================================
+TEST 11: Flush out the last page (writes the page number)
+============================================================
+** Code 128 ** input: testqid
+encoded: \startB ,84,69,83,84,81,73,68,67,\stop ,
+black-white: 21121412411211221411421212411212114214211214122114112223311120
+** Code 128 ** input: 324989230009
+encoded: \startC ,32,49,89,23,00,09,30,\stop ,
+black-white: 21123223212121133121214131213121222222121321212323311120
+[9
+Pages=9
+]
+============================================================
+(base.aux)

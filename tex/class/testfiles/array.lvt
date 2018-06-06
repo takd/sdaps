@@ -1,0 +1,649 @@
+\documentclass{scrartcl}
+\input{regression-test}
+
+\OMIT
+\usepackage{sdapsarray}
+\usepackage{multicol}
+
+
+\def\logpos#1{\lognamedpos{#1}#1}
+\def\lognamedpos#1{\leavevmode\pdfsavepos\write128{POSITION #1: \the\pdflastxpos,\the\pdflastypos}}
+
+\newenvironment{MYTEST}[1]{%
+  \begingroup%
+    \global\advance \gTESTint 1 %
+    \SEPARATOR%
+    \LONGTYPEOUT{%
+      TEST \the\gTESTint: \detokenize{#1}}%
+    \SEPARATOR%
+}{%
+    \SEPARATOR%
+    \LONGTYPEOUT{}%
+  \endgroup%
+}
+
+\newenvironment{OMITPAGE}{%
+  \begingroup%
+    \OMIT%
+}{%
+    \vfil\break%
+    \TIMO%
+  \endgroup%
+}
+
+\newenvironment{MYTESTPAGE}[1]{%
+  \begin{MYTEST}{#1}%
+}{%
+    \vfil\break%
+  \end{MYTEST}%
+}
+
+\newenvironment{MYTESTPAGESHOW}[1]{%
+  \begin{MYTESTPAGE}{#1}%
+    \showoutput%
+}{%
+  \end{MYTESTPAGE}%
+}
+
+\TIMO
+
+
+\begin{document}
+\START
+
+\begin{OMITPAGE}
+  % Some font stuff
+  $ a + b $
+
+  % Open some extra temporary files
+  \begin{sdapsarray}
+    a & b & c \\
+    d & e & f
+  \end{sdapsarray}
+\end{OMITPAGE}
+
+%\begin{MYTESTPAGE}{not shown}
+%  blub
+%\end{MYTESTPAGE}
+
+%\begin{MYTESTPAGESHOW}{shown}
+%  blub
+%\end{MYTESTPAGESHOW}
+
+%\begin{MYTESTPAGESHOW}{shown}
+%  \begin{tabular}{cc}
+%    a & ab \\
+%    c & d
+%  \end{tabular}
+%\end{MYTESTPAGESHOW}
+
+\begin{MYTESTPAGE}{Basic alignment and layout}
+  % Simply three arrays, first creating an alignment, then use it and a third
+  % independent alignment.
+
+  \begin{sdapsarray}[align=test1]
+    \logpos{row head} &
+      \logpos{col head 1} &
+      \logpos{col head 2} \\
+    \logpos{row head 2} &
+      \logpos{a} &
+      \logpos{b} \\
+    \logpos{row head 3} & \logpos{c} & \logpos{d}
+  \end{sdapsarray}
+
+  \hrule
+
+  \begin{sdapsarray}[align=test1]
+    h &
+      \logpos{a} &
+      \logpos{b} \\
+    \logpos{aligned head} &
+      \logpos{c} &
+      \logpos{d}
+  \end{sdapsarray}
+
+  \hrule
+
+  \begin{sdapsarray}[align=other1]
+    h &
+      \logpos{e} &
+      \logpos{f} \\
+    \logpos{unaligned head} &
+      \logpos{g} &
+      \logpos{h}
+  \end{sdapsarray}
+
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{Spaces in cells are not relevant}
+  \begin{sdapsarray}
+    h & \logpos{a} & \logpos{b} \\
+    h && \logpos{d}
+  \end{sdapsarray}
+
+  \begin{sdapsarray}
+    h&\logpos{a}&\logpos{b}\\%
+    h&&\logpos{d}%
+  \end{sdapsarray}
+
+  % Also test the flip case as the parser is different
+  \begin{sdapsarray}[flip]
+    h & \logpos{a} & \logpos{b} \\
+    h & & \logpos{d}
+  \end{sdapsarray}
+
+  \begin{sdapsarray}[flip]
+    h&\logpos{a}&\logpos{b}\\%
+    h& &\logpos{d}%
+  \end{sdapsarray}
+
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{Cells can be right/left aligned using hfill/vfill}
+  \begin{sdapsarray}
+      & \logpos{column} & \logpos{column} \\
+    head & \hfill\logpos{x} & \hfill\logpos{x} \\
+    head & \logpos{x} & \logpos{x} \\
+    head & \logpos{x}\hfill{} & \logpos{x}\hfill{} \\
+    head &\hfill\logpos{x}&\hfill\logpos{x}\\
+    head &\logpos{x}&\logpos{x}\\
+    head &\logpos{x}\hfill{}\kern 0pt&\logpos{x}\hfill{}\kern 0pt%
+  \end{sdapsarray}
+
+  \begin{sdapsarray}[flip]
+      & \logpos{column} & \logpos{column} \\
+    head & \hfill\logpos{x} & \hfill\logpos{x} \\
+    head & \logpos{x} & \logpos{x} \\
+    head & \logpos{x}\hfill{} & \logpos{x}\hfill{} \\
+    head &\hfill\logpos{x}&\hfill\logpos{x}\\
+    head &\logpos{x}&\logpos{x}\\
+    head &\logpos{x}\hfill{}\kern 0pt&\logpos{x}\hfill{}\kern 0pt%
+  \end{sdapsarray}
+\end{MYTESTPAGE}
+
+
+\begin{MYTESTPAGE}{Fliptest}
+  % Simple flip test. First non-flipped then flipped version.
+
+  \begin{sdapsarray}[align=test2]
+    \logpos{row head} &
+      \logpos{col head 1} &
+      \logpos{col head 2} \\
+    \logpos{row head 2} &
+      \logpos{a} &
+      \logpos{b} \\
+    \logpos{row head 3} & \logpos{c} & \logpos{d}
+  \end{sdapsarray}
+
+  \hrule
+
+  \begin{sdapsarray}[flip,align=test2]
+    \logpos{row head} &
+      \logpos{col head 1} &
+      \logpos{col head 2} \\
+    \logpos{row head 2} &
+      \logpos{a} &
+      \logpos{b} \\
+    \logpos{row head 3} & \logpos{c} & \logpos{d}
+  \end{sdapsarray}
+
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{sdapsarray spanning a multicol environment}
+  % the header will be repeated
+  \begin{multicols}{2}
+    \begin{sdapsarray}
+      \logpos{row head}\vrule height 2em depth 1em &
+        \logpos{col head 1} &
+        \logpos{col head 2} \\
+      \logpos{row head 1} & \logpos{a} & \logpos{b} \\
+      \logpos{row head 2} \vrule height 2em depth 1em & \logpos{c} & \logpos{d} \\
+      \logpos{row head 3} & \logpos{e} & \logpos{f} \\
+      \logpos{row head 4} & \logpos{g} & \logpos{h} \\
+      \logpos{row head 5} & \logpos{i} & \logpos{j} \\
+      \logpos{row head 6} & \logpos{k} & \logpos{l} \\
+      \logpos{row head 7} & \logpos{m} & \logpos{n}
+    \end{sdapsarray}
+  \end{multicols}
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{sdapsarray not splitting with huge penalty}
+  \ExplSyntaxOn
+  \int_set:Nn \g_sdaps_array_row_penalty_tl { 10000 }
+  \ExplSyntaxOff
+
+  % All of this will be in the first column becaues of the huge penalty
+  % (effectively a \nobreak) above.
+  \begin{multicols}{2}
+    \begin{sdapsarray}
+      row head & col 1 & col 2 \\
+      row head 1 & a & \logpos{a} \\
+      row head 2 & a & a \\
+      row head 3 & a & a \\
+      row head 4 & a & a \\
+      row head 5 & a & a \\
+      row head 6 & a & a \\
+      row head 7 & a & a \\
+      row head 8 & a & a \\
+      row head 9 & a & a \\
+      row head 10 & a & a \\
+      row head 11 & a & a \\
+      row head 12 & a & a \\
+      row head 13 & a & a \\
+      row head 14 & a & a \\
+      row head 15 & a & a \\
+      row head 16 & a & a \\
+      row head 17 & a & a \\
+      row head 18 & a & a \\
+      row head 19 & a & a \\
+      row head 20 & a & \logpos{a}
+    \end{sdapsarray}
+
+  \end{multicols}
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{sdapsarray should discourage being split over pages}
+  Some filler text (just so that the skip is not discarded)
+  \vskip 45em
+  And add some more variable glue after this.
+
+  \vfil
+
+  And the array is below this, but we end this paragraph first.
+
+  \begin{sdapsarray}
+    row head & col 1 & col 2 \\
+    row head 1 & a & \logpos{a} \\
+    row head 2 & a & a \\
+    row head 3 & a & a \\
+    row head 4 & a & a \\
+    row head 5 & a & a \\
+    row head 6 & a & a \\
+    row head 7 & a & a \\
+    row head 8 & a & a \\
+    row head 9 & a & a \\
+    row head 10 & a & \logpos{a}
+  \end{sdapsarray}
+\end{MYTESTPAGE}
+
+
+\begin{MYTESTPAGE}{sdapsarray with rotated header}
+  % Rotated header test. This is a bit of a cludge as we only test the
+  % positioning of the box and rotation is not actually tested.
+  % But for example "row head" is higher than "col head X".
+  \begin{sdapsarray}[layouter=rotated]
+    \logpos{row head} &
+      \logpos{col head 1} &
+      \logpos{col head 2} \\
+    \logpos{row head 1} & \logpos{a} & \logpos{b} \\
+    \logpos{row head 2} & \logpos{c} & \logpos{d} \\
+    \logpos{row head 3} & \logpos{e} & \logpos{f}
+  \end{sdapsarray}
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{sdapsarray with rotated header}
+  % Rotated header test. This is a bit of a cludge as we only test the
+  % positioning of the box and rotation is not actually tested.
+  % But for example "row head" is higher than "col head X".
+  \begin{sdapsarray}[layouter=rotated,align=test-rotated-header-align]
+    \logpos{row head} &
+      \logpos{col head 1} &
+      \logpos{col head 2} \\
+    \logpos{row head 1} & \logpos{a} & \logpos{b} \\
+    \logpos{row head 2} & \logpos{c} & \logpos{d} \\
+    \logpos{row head 3} & \logpos{e} & \logpos{f}
+  \end{sdapsarray}
+
+  \begin{sdapsarray}[layouter=rotated,align=test-rotated-header-align]
+    \logpos{row head} &
+      \logpos{col head 1} &
+      \logpos{col head 2 with extra long text} \\
+    \logpos{row head 1} & \logpos{a} & \logpos{b} \\
+    \logpos{row head 2} & \logpos{c} & \logpos{d} \\
+    \logpos{row head 3} & \logpos{e} & \logpos{f}
+  \end{sdapsarray}
+\end{MYTESTPAGE}
+
+
+\begin{MYTESTPAGE}{sdapsarray with multiline row header}
+  % The row headers can be multiline and should properly flow as paragraphs.
+  % They are ragged right though towards the cells.
+  \begin{sdapsarray}
+      & col 1 & col 2 \\
+    \logpos{A row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{row head 2} & \logpos{c} & \logpos{d} \\
+     asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf  & col 1 & col 2
+  \end{sdapsarray}
+
+  \noindent x
+  \hrule
+
+  \begin{sdapsarray}[flip]
+      &
+      \logpos{A row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. \\
+    col 1 &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} \\
+    col 2 &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b}
+  \end{sdapsarray}
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{sdapsarray inside an addmargin environment}
+  \begin{addmargin}{5em}
+    \begin{sdapsarray}
+        & col 1 & col 2 \\
+      \logpos{A row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+      \logpos{row head 2} & \logpos{c} & \logpos{d} \\
+       asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf  & col 1 & col 2
+    \end{sdapsarray}
+  \end{addmargin}
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{sdapsarray modifying separation}
+  % The row headers can be multiline and should properly flow as paragraphs.
+  % They are ragged right though towards the cells.
+  colsep=1em,rowsep=1em
+  \begin{sdapsarray}[colsep=1em,rowsep=1em]
+      & col 1 & col 2 \\
+    \logpos{A row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{row head 2} & \logpos{c} & \logpos{d} \\
+     asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf  & col 1 & col 2
+  \end{sdapsarray}
+
+  \hrule
+
+  colsep=1em,rowsep=1em
+  \begin{sdapsarray}[flip,colsep=1em,rowsep=1em]
+      &
+      \logpos{A row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. \\
+    col 1 &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} \\
+    col 2 &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b}
+  \end{sdapsarray}
+
+  \hrule
+
+  {
+  \vfil
+  \break
+  \lineskiplimit=2ex
+  \lineskip=2ex
+  lineskiplimit=2ex,lineskip=2ex
+  \begin{sdapsarray}[colsep=1em]
+      & col 1 & col 2 \\
+    \logpos{A row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. & \logpos{a} & \logpos{b} \\
+    \logpos{row head 2} & \logpos{c} & \logpos{d} \\
+     x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x   & col 1 & col 2
+  \end{sdapsarray}
+
+  \hrule
+
+  \lineskiplimit=2ex
+  \lineskip=0ex
+  lineskiplimit=2ex,lineskip=0ex (i.e. effectively no lineskip)
+  \begin{sdapsarray}[flip,colsep=1em]
+      &
+      \logpos{A row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. &
+      \logpos{Another row} header with a lot of text which will wrap over multiple lines. And here comes the \logpos{end of it}. \\
+    col 1 &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} &
+      \logpos{a} \\
+    col 2 &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b} &
+      \logpos{b}
+  \end{sdapsarray}
+  }
+  \hrule
+
+\end{MYTESTPAGE}
+
+
+\begin{MYTESTPAGE}{sdapsarray with special contents}
+  % 
+  \begin{sdapsarray}
+    \logpos{row head} &
+      \logpos{col head 1} &
+      \logpos{col head 2} \\
+    \logpos{row head 1} & \logpos{a} & \logpos{b} \\
+    \lognamedpos{verb}\verb^row head 2^ & \sdapsnested{
+      $\begin{array}{ccc} a & b \\ \logpos{c} & d \end{array}$
+    } & \logpos{d}
+  \end{sdapsarray}
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{baseline handling at the top}
+  \begin{multicols}{2}
+    Filler text above baseline.
+
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2 \\
+      2 & a & b \\
+      3 & c & d
+    \end{sdapsarray}
+    \logpos{x} \hrule
+
+    \columnbreak
+
+    Text going underneath the baseline.
+
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2 \\
+      2 & a & b \\
+      3 & c & d
+    \end{sdapsarray}
+    \logpos{x} \hrule
+
+  \end{multicols}
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{baseline handling at the bottom}
+  \begin{multicols}{4}
+    \begin{sdapsarray}
+       & col 1 & col 2 \\
+      2 & a & b \\
+      3 & c & d
+    \end{sdapsarray}
+    \logpos{x} \hrule
+
+    \columnbreak
+
+    \begin{sdapsarray}
+        & col 1 & col 2 \\
+      2 & a & b \\
+      3 & c & d
+    \end{sdapsarray}
+    \logpos{M} \hrule
+
+    \columnbreak
+
+    % The last row contains a g to go below the baseline
+    \begin{sdapsarray}
+        & col 1 & col 2 \\
+      2 & a & b \\
+      3 & c & g
+    \end{sdapsarray}
+    \logpos{x} \hrule
+
+    \columnbreak
+
+    % The last row contains a g to go below the baseline
+    \begin{sdapsarray}
+        & col 1 & col 2 \\
+      2 & a & b \\
+      3 & c & g
+    \end{sdapsarray}
+    \logpos{M} \hrule
+
+  \end{multicols}
+\end{MYTESTPAGE}
+
+\begin{MYTESTPAGE}{baseline handling between rows}
+  % TODO: Compare to normal vbox handling.
+  % NOTE: Also tests handling of the baseline on the same row
+  %       (i.e. the row header baseline should not be moved above the cells
+  %       baseline)
+  \begin{multicols}{4}
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2 \\
+      2 & \logpos{a} & b \\
+      3 & \logpos{c} & d
+    \end{sdapsarray}
+    \lognamedpos{rule} x\hrule
+
+    \columnbreak
+
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2g \\
+      2 & \logpos{a} & b \\
+      3 & \logpos{c} & d
+    \end{sdapsarray}
+    \lognamedpos{rule} x\hrule
+
+    \columnbreak
+
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2 \\
+      2 & \logpos{a} & bg \\
+      3 & \logpos{c} & d
+    \end{sdapsarray}
+    \lognamedpos{rule} x\hrule
+
+    \columnbreak
+
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2 \\
+      2 & \logpos{a} & b \\
+      3 & \logpos{c} & dg
+    \end{sdapsarray}
+    \lognamedpos{rule} x\hrule
+
+  \end{multicols}
+
+  \begin{multicols}{4}
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2 \\
+      2 & \logpos{a} & b \\
+      3 & \logpos{c} & d
+    \end{sdapsarray}
+    \lognamedpos{rule} x\hrule
+
+    \columnbreak
+
+    \begin{sdapsarray}
+      g & \logpos{col 1} & col 2 \\
+      2 & \logpos{a} & b \\
+      3 & \logpos{c} & d
+    \end{sdapsarray}
+    \lognamedpos{rule} x\hrule
+
+    \columnbreak
+
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2 \\
+      g & \logpos{a} & b \\
+      3 & \logpos{c} & d
+    \end{sdapsarray}
+    \lognamedpos{rule} x\hrule
+
+    \columnbreak
+
+    \begin{sdapsarray}
+        & \logpos{col 1} & col 2 \\
+      2 & \logpos{a} & b \\
+      g & \logpos{c} & d
+    \end{sdapsarray}
+    \lognamedpos{rule} x\hrule
+
+  \end{multicols}
+
+\end{MYTESTPAGE}
+
+
+
+\begin{MYTESTPAGE}{baselineskip handling at the top}
+  \begin{multicols}{2}
+    Filler text above baseline.
+
+    \begin{sdapsarray}[]
+      \logpos{row head} &
+        \logpos{col head 1} &
+        \logpos{col head 2} \\
+      \logpos{row head 2} & \logpos{a} & \logpos{b} \\
+      \logpos{row head 3} & \logpos{c} & \logpos{d}
+    \end{sdapsarray}
+
+    \columnbreak
+
+    Text going underneath the baseline.
+
+    \begin{sdapsarray}[]
+      \logpos{row head} &
+        \logpos{col head 1} &
+        \logpos{col head 2} \\
+      \logpos{row head 2} & \logpos{a} & \logpos{b} \\
+      \logpos{row head 3} & \logpos{c} & \logpos{d}
+    \end{sdapsarray}
+
+  \end{multicols}
+\end{MYTESTPAGE}
+
+
+%\TEST{2}
+%  {
+%    blub\logpos
+
+%    \newpage
+%  }
+
+\end{document}
+
