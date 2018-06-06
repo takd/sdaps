@@ -33,6 +33,7 @@ Külön kihívást jelentett, hogy a program eredeti struktúrája nem egyezik m
 ```
 cd /mnt/meghajto/sajat/mappam/
 git clone https://github.com/takd/sdaps.git
+cd sdaps
 ```
 
 3. Az SDAPS különböző programkönyvtárak meglehetősen kiterjedt rendszerére támaszkodik, melyekhez a fejlesztő nem biztosít összegyűjtött, egyszerűen telepíthető listát. Az eredeti README-ben van egy többé-kevésbé összeszedett lista, de az még a python 3 port előtt készült. Így sok próbálkozással magam állítottam össze egy listát, amelyben 2018. 06. 18.-án minden benne volt, ami a rendszer használatához kellett. Ezek a `dependencies.sh` futtatásával telepíthetőek:
