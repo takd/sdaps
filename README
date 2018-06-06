@@ -1,3 +1,86 @@
+# MSZO konzultáció- és kurzusértékelő-rendszer
+
+Ez a rendszer az SDAPS 1.9.2 rendszer egy forkja, mely a (BME Gépész Szakkollégium Mechatronika Szakosztály konzultációs csoportja)[http://gszk.ktk.bme.hu/node/101] számára készült. Az SDAPS segítségével kinyomtatható kérdőívek hozhatóak létre, melyeket szkennelés után digitálisan összesíteni lehet.
+
+Mivel az SDAPS még folyamatos fejlesztés alatt van, így nem tökéletes, valamint nem is teljesen felhasználóbarát, ezért szükségesnek éreztem a módosítását és kiterjesztését, hogy használható legyen az MSZO konzultációs csoportja számára. 
+
+Külön kihívást jelentett, hogy a program eredeti struktúrája nem egyezik meg azzal a folyamattal, ahogyan mi használjuk. Ugyanis mi nem nyomtatunk minden értékelendő alkalomhoz külön kérdőívet, csak kétféle kérdőív létezik -- egy a konzultációkhoz, és egy a kurzusokhoz -- azonban természetesen szeretnénk elkülöníteni az eredményeket eseményenként.
+
+## Főbb változtatások:
+* `defs.py` módosítása, hogy helyesen működhessenek a satírozás különböző értelmezései
+* `calculate.py` módosítása a helyes szórás-számítás érdekében
+* a testreszabhatóbb összefoglalók készítésének lehetősége a `sdapsreport.cls` alkalmanként történő létrehzozásával a saját `sdapsreport_base.cls` alapján
+* a kérdőívek generált részeinek magyarra fordítása
+
+## Főbb kiterjesztések
+* A központi kezelőfelület a `new_project.sh` szkript. Főbb funkciói:
+  * A `_nyers` mappába elhelyezett szkennelt `*.tif` fájlok automatikus összegyűjtése
+  * Esemény típusának, tárgyának és időpontjának bekérése, satírozás értelmezésének kezelése
+  * Az esemény tulajdonságai alapján átlátható projektmappa létrehozása a megfelelő tex kérdőív alapján
+  * A válaszok feldolgozása SDAPS segítségével
+  * Az eseményhez szabott összefoglaló készítése SDAPS segítségével, annak megfelelő átnevezése és az összes összefoglaló átlátható összegyűjtése
+* Két saját LaTeX-kérdőív
+  * Egy a konzultációkra, egy a kurzusokra
+  * Feleletválasztós és szabadkézi mezőkkel
+* A `get_csv.sh` szkript segítségével az összes értékelés összegyűjtése .csv formátumban a félév végi értékeléshez.
+
+## Telepítés
+
+1. Az SDAPS csak Linux-on fut, Windows-on a Windows Linux Subsystem segítségével érdemes használni, a jelen rendszer is WSL-en volt kifejlesztve, Ubuntu rendszerrel. A telepítés lépései [itt olvahatóak](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
+2. Mivel az SDAPS stabil verziója jóval a fejlesztési verzió mögött kullog, és WSL-en egyébként is meglehetősen nehéz a telepítése, valamit az egyini módosítások miatt forrásból kell telepíteni, a jelent git repóból. Érdemes egy saját, windows-os mappánkba navigálni először, így a fájlműveleteket a megszokott módon végezhetjük, majd oda letölteni a rendszert:
+
+```
+cd /mnt/meghajto/sajat/mappam/
+git clone https://github.com/takd/sdaps.git
+```
+
+3. Az SDAPS különböző programkönyvtárak meglehetősen kiterjedt rendszerére támaszkodik, melyekhez a fejlesztő nem biztosít összegyűjtött, egyszerűen telepíthető listát. Az eredeti README-ben van egy többé-kevésbé összeszedett lista, de az még a python 3 port előtt készült. Így sok próbálkozással magam állítottam össze egy listát, amelyben 2018. 06. 18.-án minden benne volt, ami a rendszer használatához kellett. Ezek a `dependencies.sh` futtatásával telepíthetőek:
+
+```
+./dependencies.sh
+```
+
+4. Ezek után még le kell fordítani a C-könyvtárakat:
+
+```
+./setup.py build
+```
+
+5. Ha minden jól ment, a rendszer készen áll a használatra.
+
+## Használat
+
+GUI nincs, így mindent a terminálon keresztül kell csinálni. Érdemes azonban egy saját, windows-os mappánkba navigálni, így a fájlműveleteket a megszokott módon végezhetjük, csak a szkripteket kell (a telepítés után) a terminálból futtatni.
+
+### Beszkennelt kérdőívek feldolgozása, új projekt létrehozása:
+
+1. A kérdőíveket legalább 300 DPI minőségben, monokróm színben, TIF formátumban kell beszkennelni az optimális működés érdekében.
+
+2. Egyszerre egy eseményhez tartozó kérdőíveket kell bemásolni a `_nyers` mappába.
+
+3. Ezek után futtathatjuk a feldolgozó szkriptet: `./new_project.sh`
+
+Megjegyzés: kérdőíveket nyomtatáshoz úgy a legegyszerűbb generálni, ha a `konzultacio.tex`, illetve `kurzus.tex` fájlok véglegesítése után csinálunk egy-egy üres projektet a szkripttel, majd a projektmappából kimásoljuk a megfelelő `questionnaire.pdf` fájlokat.
+
+### CSV-összefoglalók készítése
+
+1. A `./get_csv.sh` futtatásával a _projektek mappában lévő értékeléseit a szkript egyenként legenerálja CSV formátumban, majd összegyűjti őket a `_csv` mappába.
+
+2. Ezek után ezeket tetszőleges módszerrel feldolgozhatjuk, pl. Excelben, vagy Wolfram Mathematicában.
+
+## További megjegyzések  
+Ha lehet, kerüljük az ékezetes mappákat (de a `new_project.sh` futtatásánálhasználhatunk ékezetes kifejezéseket), az ilyen jellegű problémák erkerülése érdekében:
+> ('UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 4: ordinal not in range(128)')
+
+A teljesebb megértés érdekében érdemes elolvasni az SDAPS eredeti, bár jelenleg kissé hiányos és régi dokumentációját, valamit böngészni a holnap többi részét is: https://sdaps.org/
+
+A rendszer ezen kiterjesztésére is ugyanazok a licenszek vonatkoznak, mint az eredeti SDAPS szoftverre.
+
+Alább olvasható az eredeti README:
+
+--------------------------------------------------------
+
 # SDAPS
 
 This Program can be used to carry out paper based surveys.
