@@ -78,6 +78,10 @@ A teljesebb megértés érdekében érdemes elolvasni az SDAPS eredeti, bár jel
 
 A rendszer ezen kiterjesztésére is ugyanazok a licenszek vonatkoznak, mint az eredeti SDAPS szoftverre.
 
+## Továbbfejlesztési lehtőségek
+* Lokalizáció szebb implementációja
+* Félév végi kiértékelés további automatizálása
+
 Alább olvasható az eredeti README:
 
 --------------------------------------------------------
