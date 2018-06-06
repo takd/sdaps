@@ -103,7 +103,7 @@ if [ ! -d "_osszefoglalok" ]; then
 mkdir _osszefoglalok
 fi
 cp "$MAPPA/report_1.pdf" "_osszefoglalok/$alkalom-$datum-$targy.pdf"
-echo "Az összefoglaló sikeresen elkészült. Helye: osszefoglalok/$alkalom-$datum-$targy.pdf"
+echo "Az összefoglaló sikeresen elkészült. Helye: _osszefoglalok/$alkalom-$datum-$targy.pdf"
 
 #Ideiglenes fájlok eltávolítása
 rm tex/sdapsreport.cls
