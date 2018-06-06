@@ -1,6 +1,6 @@
 # MSZO konzultáció- és kurzusértékelő-rendszer
 
-Ez a rendszer az SDAPS 1.9.2 rendszer egy forkja, mely a (BME Gépész Szakkollégium Mechatronika Szakosztály konzultációs csoportja)[http://gszk.ktk.bme.hu/node/101] számára készült. Az SDAPS segítségével kinyomtatható kérdőívek hozhatóak létre, melyeket szkennelés után digitálisan összesíteni lehet.
+Ez a rendszer az SDAPS 1.9.2 rendszer egy forkja, mely a [BME Gépész Szakkollégium Mechatronika Szakosztály konzultációs csoportja](http://gszk.ktk.bme.hu/node/101) számára készült. Az SDAPS segítségével kinyomtatható kérdőívek hozhatóak létre, melyeket szkennelés után digitálisan összesíteni lehet.
 
 Mivel az SDAPS még folyamatos fejlesztés alatt van, így nem tökéletes, valamint nem is teljesen felhasználóbarát, ezért szükségesnek éreztem a módosítását és kiterjesztését, hogy használható legyen az MSZO konzultációs csoportja számára. 
 
@@ -9,7 +9,7 @@ Külön kihívást jelentett, hogy a program eredeti struktúrája nem egyezik m
 ## Főbb változtatások:
 * `defs.py` módosítása, hogy helyesen működhessenek a satírozás különböző értelmezései
 * `calculate.py` módosítása a helyes szórás-számítás érdekében
-* a testreszabhatóbb összefoglalók készítésének lehetősége a `sdapsreport.cls` alkalmanként történő létrehzozásával a saját `sdapsreport_base.cls` alapján
+* a testreszabhatóbb összefoglalók készítésének lehetősége a `sdapsreport.cls` alkalmanként történő létrehozásával a saját `sdapsreport_base.cls` alapján
 * a kérdőívek generált részeinek magyarra fordítása
 
 ## Főbb kiterjesztések
@@ -28,7 +28,7 @@ Külön kihívást jelentett, hogy a program eredeti struktúrája nem egyezik m
 
 1. Az SDAPS csak Linux-on fut, Windows-on a Windows Linux Subsystem segítségével érdemes használni, a jelen rendszer is WSL-en volt kifejlesztve, Ubuntu rendszerrel. A telepítés lépései [itt olvahatóak](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-2. Mivel az SDAPS stabil verziója jóval a fejlesztési verzió mögött kullog, és WSL-en egyébként is meglehetősen nehéz a telepítése, valamit az egyini módosítások miatt forrásból kell telepíteni, a jelent git repóból. Érdemes egy saját, windows-os mappánkba navigálni először, így a fájlműveleteket a megszokott módon végezhetjük, majd oda letölteni a rendszert:
+2. Mivel az SDAPS stabil verziója jóval a fejlesztési verzió mögött kullog, és WSL-en egyébként is meglehetősen nehéz a telepítése, valamit az egyini módosítások miatt forrásból kell telepíteni, a jelent git repóból. Érdemes egy saját, windows-os mappánkba navigálni először, így a fájlműveleteket később a megszokott módon végezhetjük, majd oda letölteni a rendszert:
 
 ```
 cd /mnt/meghajto/sajat/mappam/
@@ -52,7 +52,7 @@ cd sdaps
 
 ## Használat
 
-GUI nincs, így mindent a terminálon keresztül kell csinálni. Érdemes azonban egy saját, windows-os mappánkba navigálni, így a fájlműveleteket a megszokott módon végezhetjük, csak a szkripteket kell (a telepítés után) a terminálból futtatni.
+GUI nincs, így minden műveletet a terminálon keresztül kell végezni. Ha a telepítést azonban egy windows-os mappába végeztük a fentiek szerint, az sokat könnyít a helyzeten.
 
 ### Beszkennelt kérdőívek feldolgozása, új projekt létrehozása:
 
