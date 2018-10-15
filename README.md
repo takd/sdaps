@@ -26,7 +26,7 @@ Külön kihívást jelentett, hogy a program eredeti struktúrája nem egyezik m
 
 ## Telepítés
 
-1. Az SDAPS csak Linux-on fut, Windows-on a Windows Linux Subsystem segítségével érdemes használni, a jelen rendszer is WSL-en volt kifejlesztve, Ubuntu rendszerrel. A telepítés lépései [itt olvahatóak](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Ha feltelepítettük, indítsuk el a parancsikonnal, vagy a Windows PowerShell-ből a `bash` paranccsal.
+1. Az SDAPS csak Linux-on fut, Windows-on a Windows Linux Subsystem segítségével érdemes használni, a jelen rendszer is WSL-en volt kifejlesztve, Ubuntu rendszerrel. A telepítés lépései [itt olvahatóak](https://docs.microsoft.com/en-us/windows/wsl/install-win10). *Jelenlegi állapotában a rendszer csak az Ubuntu 16.04 verziójával működik.* Így ezt szükséges telepíteni a WSL konfigurálása során. Ha feltelepítettük, indítsuk el a parancsikonnal, vagy a Windows PowerShell-ből a `bash` paranccsal.
 
 2. Az SDAPS stabil verziója jóval a fejlesztési verzió mögött kullog, WSL-en egyébként is meglehetősen nehéz a telepítése, valamint a fenti egyéni módosításokat is eszközöltem. Ezért forrásból kell telepíteni, a jelen git repóból. Érdemes egy saját, Windows-os mappánkba navigálni először, így a fájlműveleteket később a megszokott, Winsows-os módon végezhetjük, majd oda letölteni a rendszert:
 
